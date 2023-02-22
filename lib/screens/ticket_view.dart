@@ -6,7 +6,8 @@ import 'package:ticket_bookings/widgets/thick_container.dart';
 
 class TicketView extends StatelessWidget {
   final Map<String, dynamic> ticket;
-  const TicketView({Key? key, required this.ticket}) : super(key: key);
+  final bool? isColor;
+  const TicketView({Key? key, required this.ticket, this.isColor}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,7 @@ class TicketView extends StatelessWidget {
              */
             Container(
               decoration: BoxDecoration(
-                color: const Color(0xFF526799),
+                color: isColor==null? const Color(0xFF526799):Colors.white,
                 borderRadius: BorderRadius.only(topLeft: Radius.circular(AppLayout.getHeight(21)), topRight: Radius.circular(AppLayout.getHeight(21))),
               ),
               padding: EdgeInsets.all(AppLayout.getHeight(16)),
@@ -31,7 +32,10 @@ class TicketView extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Text(ticket['from']['code'], style: Styles.headlineStyle3.copyWith(color: Colors.white),),
+                      Text(
+                        ticket['from']['code'],
+                        style: isColor==null? Styles.headlineStyle3.copyWith(color: Colors.white): Styles.headlineStyle3,
+                      ),
                       Expanded(child: Container()),
                       const ThickContainer(),
                       Expanded(child: Stack(
